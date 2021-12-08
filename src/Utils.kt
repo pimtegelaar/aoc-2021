@@ -15,3 +15,11 @@ fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest
 fun verifyEquals(actual: Any, expected: Any) {
     check(actual == expected) { "Failed, expected $expected, but got $actual" }
 }
+
+fun String.sort() = toCharArray().sorted().joinToString("")
+
+fun String.containsAll(other : String) = toList().containsAll(other.toList())
+
+fun List<String>.ofLength(length: Int) = filter { it.length == length }
+
+fun List<String>.singleOfLength(length: Int) = ofLength(length).single()
