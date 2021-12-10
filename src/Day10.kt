@@ -15,14 +15,8 @@ fun main() {
     fun checkForCorruption(line: String): Char? {
         val stack = mutableListOf<Char>()
         line.forEach { c ->
-            if (stack.isEmpty()) {
-                if (c.isClosing()) {
-                    return c
-                } else {
-                    stack.add(c)
-                }
-            } else if (c.isClosing()) {
-                if (stack.last().matchingClose() == c) {
+            if (c.isClosing()) {
+                if (stack.isNotEmpty() && stack.last().matchingClose() == c) {
                     stack.removeLast()
                 } else {
                     return c
@@ -37,12 +31,8 @@ fun main() {
     fun complete(line: String): List<Char> {
         val stack = mutableListOf<Char>()
         line.forEach { c ->
-            if (c.isClosing()) {
-                if (stack.last().matchingClose() == c) {
-                    stack.removeLast()
-                } else {
-                    stack.add(c)
-                }
+            if (c.isClosing() && stack.last().matchingClose() == c) {
+                stack.removeLast()
             } else {
                 stack.add(c)
             }
@@ -92,4 +82,3 @@ fun main() {
     println("Part 1 = " + part1(input))
     println("Part 2 = " + part2(input))
 }
-
