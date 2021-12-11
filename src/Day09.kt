@@ -76,9 +76,9 @@ fun main() {
                 if (point.x < points.size - 1)
                     point.right = points[point.x + 1]
                 if (point.y > 0)
-                    point.bottom = rows[point.y - 1][point.x]
+                    point.top = rows[point.y - 1][point.x]
                 if (point.y < rows.size - 1)
-                    point.top = rows[point.y + 1][point.x]
+                    point.bottom = rows[point.y + 1][point.x]
             }
         }
         rows.forEach { points ->
