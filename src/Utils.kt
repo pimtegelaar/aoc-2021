@@ -1,6 +1,7 @@
 import java.io.File
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.*
 
 /**
  * Reads lines from the given input txt file.
@@ -18,7 +19,7 @@ fun verifyEquals(actual: Any, expected: Any) {
 
 fun String.sort() = toCharArray().sorted().joinToString("")
 
-fun String.containsAll(other : String) = toList().containsAll(other.toList())
+fun String.containsAll(other: String) = toList().containsAll(other.toList())
 
 fun List<String>.ofLength(length: Int) = filter { it.length == length }
 
