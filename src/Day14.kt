@@ -1,3 +1,5 @@
+import kotlin.system.measureTimeMillis
+
 fun main() {
 
     fun polymerize(occurrences: MutableMap<String, Long>, rules: Map<String, String>): MutableMap<String, Long> {
@@ -39,14 +41,12 @@ fun main() {
 
     val testInput = readInput("Day14_test")
     verifyEquals(part1And2(testInput, 10) + 1, 1588L)
+    verifyEquals(part1And2(testInput, 40) + 1, 2188189693529)
 
     val input = readInput("Day14")
-    println("Part 1 = " + (part1And2(input, 10) - 1)) // 2657
 
-    verifyEquals(part1And2(testInput, 40) + 1, 2188189693529)
-    val start = System.currentTimeMillis()
-    println("Part 2 = " + (part1And2(input, 40) - 1)) // 2911561572630
-    val duration = System.currentTimeMillis() - start
-    println("It took: $duration")
+    println("It took: " + measureTimeMillis {
+        println("Part 1 = " + (part1And2(input, 10) - 1)) // 2657
+        println("Part 2 = " + (part1And2(input, 40) - 1)) // 2911561572630
+    })
 }
-
