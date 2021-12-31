@@ -14,29 +14,28 @@ fun main() {
         return newOccurrences
     }
 
-    fun occurrences(template: String): MutableMap<String, Long> {
-        val result = mutableMapOf<String, Long>()
+    fun occurrences(template: String) = with(mutableMapOf<String, Long>().withDefault { 0 }) {
         template.windowed(2, 1).forEach {
-            result[it] = result.getOrDefault(it, 0) + 1
+            this[it] = getValue(it) + 1
         }
-        return result
+        this
     }
 
     fun part1And2(input: List<String>, steps: Int = 10): Long {
-        val template = input[0]
         val rules = input.drop(2).associate {
-            val split = it.split(" -> ")
-            split[0] to split[1]
+            val (pair, toInsert) = it.split(" -> ")
+            pair to toInsert
         }
-        var occurrences = occurrences(template)
+        var occurrences = occurrences(input[0])
         for (i in 1..steps) {
             occurrences = polymerize(occurrences, rules)
         }
-        val grouped = occurrences.entries.groupBy { it.key[0] }
-        val sums = grouped.map { entry -> entry.key to entry.value.sumOf { it.value } }
-        val sorted = sums.sortedBy { (_, value) -> value }.toMap().toList()
+        val sorted = occurrences.entries
+            .groupBy { it.key[0] }.values
+            .map { it.sumOf { occurrence -> occurrence.value } }
+            .sortedBy { it }
 
-        return sorted.last().second - sorted.first().second
+        return sorted.last() - sorted.first()
     }
 
     val testInput = readInput("Day14_test")
