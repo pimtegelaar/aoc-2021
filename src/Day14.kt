@@ -3,13 +3,13 @@ import kotlin.system.measureTimeMillis
 fun main() {
 
     fun polymerize(occurrences: MutableMap<String, Long>, rules: Map<String, String>): MutableMap<String, Long> {
-        val newOccurrences = mutableMapOf<String, Long>()
-        occurrences.forEach {
-            val c = rules[it.key]!!
-            val c1 = it.key[0] + c
-            val c2 = c + it.key[1]
-            newOccurrences[c1] = newOccurrences.getOrDefault(c1, 0) + it.value
-            newOccurrences[c2] = newOccurrences.getOrDefault(c2, 0) + it.value
+        val newOccurrences = mutableMapOf<String, Long>().withDefault { 0 }
+        occurrences.forEach { (pair, count) ->
+            val toInsert = rules.getValue(pair)
+            val c1 = pair[0] + toInsert
+            val c2 = toInsert + pair[1]
+            newOccurrences[c1] = newOccurrences.getValue(c1) + count
+            newOccurrences[c2] = newOccurrences.getValue(c2) + count
         }
         return newOccurrences
     }
